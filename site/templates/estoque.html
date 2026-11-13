@@ -1,0 +1,25 @@
+{% extends "base.html" %}{% block titulo %}Estoque{% endblock %}
+{% block conteudo %}
+<div class="cabeca"><h1>Estoque de vídeos</h1></div>
+<section class="cartoes">
+  <div class="kpi verde"><b>{{ est.disponiveis }}</b><span>Prontos para vender</span></div>
+  <div class="kpi"><b>{{ alvo }}</b><span>Meta do estoque</span></div>
+  <div class="kpi"><b>{{ est.enviados }}</b><span>Já entregues</span></div>
+  <div class="kpi"><b>48 h</b><span>Validade (o preço muda)</span></div>
+</section>
+<section class="cartao"><h2>Prontos por nicho</h2>
+  <div class="pilha">{% for n, q in est.por_nicho.items() %}<span class="chip">{{ n }}: <b>{{ q }}</b></span>{% else %}<span class="ajuda">Estoque vazio — o robô vai fabricar.</span>{% endfor %}</div>
+</section>
+<section class="cartao"><h2>Meta do estoque</h2>
+  <form method="post" class="duas"><input type="hidden" name="_csrf" value="{{ csrf() }}">
+    <label>Quantos vídeos manter prontos <input name="alvo" type="number" min="0" max="200" value="{{ alvo }}"></label>
+    <div style="align-self:end;margin-bottom:.7rem"><button class="btn primario">Salvar</button></div></form>
+  <p class="ajuda">Nas horas vagas o robô fabrica vídeos até chegar nessa meta. Cada vídeo vai para um cliente só e nunca se repete.</p>
+</section>
+<section class="cartao"><h2>Últimos vídeos</h2>
+{% if ultimos %}<table class="resp"><thead><tr><th>Produto</th><th>Nicho</th><th>Formato</th><th>Situação</th><th>Cliente</th></tr></thead><tbody>
+{% for v in ultimos %}<tr><td data-r="Produto">{{ v.titulo[:50] }}</td><td data-r="Nicho">{{ v.nicho }}</td><td data-r="Formato">{{ v.formato }}</td>
+<td data-r="Situação"><span class="selo {{ {'disponivel':'verde','enviado':'cinza','reservado':'amarelo'}.get(v.status,'vermelho') }}">{{ v.status }}</span></td><td data-r="Cliente">{{ v.cliente or '—' }}</td></tr>{% endfor %}
+</tbody></table>{% else %}<p class="vazio">Nenhum vídeo ainda.</p>{% endif %}
+</section>
+{% endblock %}

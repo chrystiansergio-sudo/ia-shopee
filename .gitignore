@@ -1,0 +1,19 @@
+# segredos (cada um usa o seu .env — veja .env.example)
+.env
+*.pem
+id_*
+# dados privados: clientes, vendas, estoque, sessões do WhatsApp, gravações de voz
+dados/
+gravacoes/
+whatsapp/auth/
+whatsapp/node_modules/
+*.log
+*.db
+# vídeos e arquivos gerados
+saida/
+testes_ia/*
+!testes_ia/*.py
+!testes_ia/lote_produtos.json
+__pycache__/
+*.pyc
+research_notes/

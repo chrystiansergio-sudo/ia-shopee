@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block titulo %}Primeiro acesso{% endblock %}
+{% block corpo %}
+<main class="acesso">
+  <img class="robo-grande" src="{{ url_for('robo_svg') }}" alt="Robô IA Shopee">
+  <h1>Crie sua senha</h1><p class="ajuda">Só você vai entrar no painel.</p>
+  {% for cat, msg in get_flashed_messages(with_categories=true) %}<div class="aviso {{ cat }}" role="alert">{{ msg }}</div>{% endfor %}
+  <form method="post" class="cartao">
+    <input type="hidden" name="_csrf" value="{{ csrf() }}">
+    <label>Nova senha <input name="senha" type="password" autocomplete="new-password" minlength="6" required autofocus></label>
+    <label>Repita a senha <input name="senha2" type="password" autocomplete="new-password" minlength="6" required></label>
+    <button class="btn primario grande">Criar senha e entrar</button>
+  </form>
+</main>
+{% endblock %}

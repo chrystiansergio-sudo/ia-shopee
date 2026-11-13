@@ -1,0 +1,62 @@
+{% extends "base.html" %}{% block titulo %}{{ c.nome }}{% endblock %}
+{% block conteudo %}
+<div class="cabeca"><h1>{{ c.nome }}{% if not c.ativo %} <span class="selo cinza">inativo</span>{% endif %}</h1>
+  <a class="btn" href="{{ url_for('clientes') }}">← Clientes</a></div>
+
+<section class="cartao">
+  <h2>Vender pack de vídeos</h2>
+  <form method="post" action="{{ url_for('vender', cid=c.id) }}" id="venda">
+    <input type="hidden" name="_csrf" value="{{ csrf() }}">
+    <div class="pacotes">{% for p in precos %}
+      <button type="button" class="pacote" data-qtd="{{ p.qtd }}" data-valor="{{ '%.2f'|format(p.valor) }}"><b>{{ p.qtd }} vídeos</b>{{ brl(p.valor) }}<br><small>{{ p.nome }}</small></button>
+    {% endfor %}</div>
+    <div class="duas">
+      <label>Quantidade de vídeos <input name="qtd" id="qtd" type="number" min="1" max="100" value="{{ precos[0].qtd if precos else 10 }}" required></label>
+      <label>Valor da venda (R$) <input name="valor" id="valor" inputmode="decimal" value="{{ '%.2f'|format(precos[0].valor) if precos else '0' }}"></label>
+      <label>Nicho dos vídeos <select name="nicho"><option value="todos" {% if c.nicho=='todos' %}selected{% endif %}>Todos os nichos</option>{% for n in NICHOS %}<option {% if c.nicho==n %}selected{% endif %}>{{ n }}</option>{% endfor %}</select></label>
+      <label>Robô (agente) que vai mandar <select name="agente">{% for a in agentes %}<option value="{{ a.id }}">{{ a.apelido }} — {{ ROTULO_STATUS.get(sess.get(a.sessao), 'Desligado') }}</option>{% endfor %}</select></label>
+    </div>
+    <label class="marcar"><input type="checkbox" name="pago" checked> Já recebi o pagamento</label>
+    <label>Observação <input name="obs" autocomplete="off"></label>
+    <p class="ajuda">O robô pega os vídeos prontos do estoque (que esse cliente nunca recebeu), troca o link pelo link de afiliado dele e manda no WhatsApp +{{ c.whatsapp }}. Peça para o cliente mandar um "oi" para o número do robô antes.</p>
+    <button class="btn primario grande">Registrar venda e enviar</button>
+  </form>
+</section>
+
+<section class="cartao"><h2>Compras deste cliente</h2>
+{% if vendas %}
+<table class="resp"><thead><tr><th>Data</th><th>Vídeos</th><th>Valor</th><th>Pagamento</th><th>Entrega</th><th></th></tr></thead><tbody>
+{% for v in vendas %}<tr>
+  <td data-r="Data">{{ data_br(v.data) }}</td><td data-r="Vídeos">{{ v.qtd }}</td><td data-r="Valor">{{ brl(v.valor) }}</td>
+  <td data-r="Pagamento"><form method="post" action="{{ url_for('venda_pago', vid=v.id) }}"><input type="hidden" name="_csrf" value="{{ csrf() }}">
+    <button class="btn pequeno">{% if v.pago %}<span class="selo verde">Pago</span>{% else %}<span class="selo amarelo">Marcar pago</span>{% endif %}</button></form></td>
+  <td data-r="Entrega">{% if v.pedido %}{{ ROTULO_PEDIDO.get(v.pedido.status, v.pedido.status) }} · {{ v.pedido.enviados }}/{{ v.qtd }}{% if v.pedido.erro %}<br><small>{{ v.pedido.erro }}</small>{% endif %}{% else %}—{% endif %}</td>
+  <td>{% if v.pedido and v.pedido.status in ('incompleto','pendente') %}<form method="post" action="{{ url_for('pedido_reenviar', pid=v.pedido.id) }}"><input type="hidden" name="_csrf" value="{{ csrf() }}"><button class="btn pequeno">Tentar de novo</button></form>{% endif %}</td>
+</tr>{% endfor %}</tbody></table>
+{% else %}<p class="vazio">Nenhuma compra ainda.</p>{% endif %}
+</section>
+
+<section class="cartao">
+  <h2>Dados do cliente</h2>
+  <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf() }}">
+    <div class="duas">
+      <label>Nome <input name="nome" value="{{ c.nome }}" required></label>
+      <label>WhatsApp <input name="whatsapp" value="{{ c.whatsapp }}" inputmode="tel" required></label>
+      <label>API do cliente – AppID <input name="app_id" value="{{ c.app_id or '' }}" autocomplete="off"></label>
+      <label>API do cliente – Senha (Secret) <input name="secret" value="{{ '••••••' if c.secret else '' }}" autocomplete="off"></label>
+      <label>Nicho preferido <select name="nicho"><option value="todos">Todos os nichos</option>{% for n in NICHOS %}<option {% if c.nicho==n %}selected{% endif %}>{{ n }}</option>{% endfor %}</select></label>
+      <label>Observação <input name="obs" value="{{ c.obs or '' }}"></label>
+    </div>
+    <label class="marcar"><input type="checkbox" name="ativo" {% if c.ativo %}checked{% endif %}> Cliente ativo</label>
+    <div class="pilha"><button class="btn primario">Salvar</button></div>
+  </form>
+  <form method="post" action="{{ url_for('cliente_testar', cid=c.id) }}" style="margin-top:.6rem"><input type="hidden" name="_csrf" value="{{ csrf() }}"><button class="btn">Testar API da Shopee</button></form>
+</section>
+<script>
+document.querySelectorAll('.pacote').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.pacote').forEach(x=>x.classList.remove('ativo'));b.classList.add('ativo');
+  document.getElementById('qtd').value=b.dataset.qtd;document.getElementById('valor').value=b.dataset.valor;}));
+const p=document.querySelector('.pacote');if(p)p.classList.add('ativo');
+</script>
+{% endblock %}

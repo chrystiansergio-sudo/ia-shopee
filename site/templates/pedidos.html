@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block titulo %}Pedidos{% endblock %}
+{% block conteudo %}
+<div class="cabeca"><h1>Pedidos (entregas)</h1><a class="btn" href="{{ url_for('pedidos_pg') }}">Atualizar</a></div>
+{% if pedidos %}
+<table class="resp cartao"><thead><tr><th>#</th><th>Cliente</th><th>Nicho</th><th>Enviados</th><th>Situação</th><th>Data</th><th></th></tr></thead><tbody>
+{% for p in pedidos %}<tr>
+  <td data-r="#">{{ p.id }}</td>
+  <td data-r="Cliente">{% if p.cliente_id %}<a href="{{ url_for('cliente', cid=p.cliente_id) }}">{{ p.cliente }}</a>{% else %}{{ p.cliente }}{% endif %}</td>
+  <td data-r="Nicho">{{ p.nicho }}</td><td data-r="Enviados">{{ p.enviados }}/{{ p.qtd }}</td>
+  <td data-r="Situação"><span class="selo {{ {'enviado':'verde','pronto':'verde','incompleto':'vermelho','cancelado':'cinza'}.get(p.status,'amarelo') }}">{{ ROTULO_PEDIDO.get(p.status, p.status) }}</span>{% if p.erro %}<br><small>{{ p.erro }}</small>{% endif %}</td>
+  <td data-r="Data">{{ data_br(p.criado) }}</td>
+  <td>{% if p.status in ('pendente','fazendo') %}<form method="post" action="{{ url_for('pedido_cancelar', pid=p.id) }}"><input type="hidden" name="_csrf" value="{{ csrf() }}"><button class="btn pequeno perigo">Cancelar</button></form>
+      {% elif p.status == 'incompleto' %}<form method="post" action="{{ url_for('pedido_reenviar', pid=p.id) }}"><input type="hidden" name="_csrf" value="{{ csrf() }}"><button class="btn pequeno">Tentar de novo</button></form>{% endif %}</td>
+</tr>{% endfor %}</tbody></table>
+{% else %}<p class="vazio">Nenhum pedido ainda.</p>{% endif %}
+{% endblock %}

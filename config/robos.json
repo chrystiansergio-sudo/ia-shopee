@@ -1,0 +1,8 @@
+{
+  "dono": {
+    "descricao": "Robô principal (conta de afiliado do dono)",
+    "chaves_env": "DONO",
+    "whatsapp_sessao": "dono",
+    "tipo_link": "afiliado"
+  }
+}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}{% block titulo %}Visão geral{% endblock %}
+{% block conteudo %}
+<div class="cabeca">
+  <h1>Visão geral</h1>
+  <div class="pilha">
+    <a class="btn primario" href="{{ url_for('meus_videos') }}">🎬 Vídeos para mim</a>
+    <a class="btn" href="{{ url_for('clientes') }}#novo">Novo cliente</a>
+  </div>
+</div>
+<section class="painel">
+  <a class="tile verde" href="{{ url_for('estoque_pg') }}"><b>{{ est.disponiveis }}</b><span>Vídeos prontos no estoque <small>(meta {{ alvo }})</small></span></a>
+  <a class="tile" href="{{ url_for('pedidos_pg') }}"><b>{{ fila|length }}</b><span>Pedidos sendo enviados agora</span></a>
+  <a class="tile azul" href="{{ url_for('pedidos_pg') }}"><b>{{ est.enviados }}</b><span>Vídeos já entregues <small>({{ pedidos_entregues }} pedidos)</small></span></a>
+  <a class="tile laranja" href="{{ url_for('meus_videos') }}"><b>{{ meus_mes }}</b><span>Vídeos que fiz para mim no mês <small>({{ meus_total }} no total)</small></span></a>
+  <a class="tile azul" href="{{ url_for('agentes') }}"><b>{{ ag_ok }}</b><span>Agentes conectados</span></a>
+  <a class="tile {{ 'laranja' if ag_off else '' }}" href="{{ url_for('agentes') }}"><b>{{ ag_off }}</b><span>Agentes desconectados</span></a>
+  <a class="tile dinheiro" href="{{ url_for('faturamento') }}" title="Ver outros meses">
+    <b>{{ brl(recebido) }}</b><span>Recebido no mês <small>({{ titulo_mes }}{% if a_receber %} · a receber {{ brl(a_receber) }}{% endif %})</small></span><em>ver outros meses ›</em></a>
+  <div class="mascote"><img src="{{ url_for('robo_tela', n=vendidos, r='vídeos vendidos') }}" alt="{{ vendidos }} vídeos vendidos"></div>
+</section>
+<section class="cartao">
+  <div class="cabeca"><h2>Clientes</h2><a class="btn pequeno" href="{{ url_for('clientes') }}">Ver todos</a></div>
+  {% if clientes_lista %}<ul class="lista">{% for c in clientes_lista %}
+    <li class="linha">
+      <div class="linha-nome"><a href="{{ url_for('cliente', cid=c.id) }}">{{ c.nome }}</a></div>
+      <div class="dado"><span>Telefone</span>+{{ c.whatsapp }}</div>
+      <div class="dado"><span>API Shopee</span>{% if c.app_id %}<span class="selo verde">Cadastrada</span>{% else %}<span class="selo amarelo">Sem API</span>{% endif %}</div>
+      <div class="dado"><span>Vídeos comprados</span>{{ c.n_videos }}</div>
+      <a class="btn" href="{{ url_for('cliente', cid=c.id) }}">Ver detalhes</a>
+    </li>{% endfor %}</ul>
+  {% else %}<p class="vazio">Nenhum cliente ainda. <a href="{{ url_for('clientes') }}#novo">Cadastrar o primeiro</a>.</p>{% endif %}
+</section>
+{% endblock %}

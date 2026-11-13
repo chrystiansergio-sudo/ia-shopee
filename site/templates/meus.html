@@ -1,0 +1,41 @@
+{% extends "base.html" %}{% block titulo %}Vídeos para mim{% endblock %}
+{% block conteudo %}
+<div class="cabeca"><h1>🎬 Vídeos para mim</h1></div>
+<section class="painel3">
+  <div class="tile laranja"><b>{{ hoje_n }}</b><span>Recebidos hoje</span></div>
+  <div class="tile"><b>{{ mes }}</b><span>Recebidos no mês</span></div>
+  <div class="tile azul"><b>{{ total }}</b><span>Total que já fiz para mim</span></div>
+  <div class="tile verde"><b>{{ est.disponiveis }}</b><span>Prontos no estoque agora</span></div>
+</section>
+<section class="cartao">
+  <h2>Pedir vídeos agora</h2>
+  {% if dono %}<p class="ajuda">Chegam no seu WhatsApp (+{{ dono.whatsapp }}). Sem venda e sem valor: é só para você.</p>{% endif %}
+  <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf() }}">
+    <div class="pacotes cinco" role="group" aria-label="Quantidade rápida">
+      {% for n in (5, 10, 15, 20, 30) %}<button type="button" class="pacote{{ ' ativo' if n == 15 else '' }}" data-n="{{ n }}"><b>{{ n }}</b>vídeos</button>{% endfor %}
+    </div>
+    <div class="tres">
+      <label>Quantidade de vídeos <input id="qtd" name="qtd" type="number" min="1" max="100" value="15" required></label>
+      <label>Nicho <select name="nicho"><option value="todos">Todos (variado)</option>{% for n in NICHOS %}<option>{{ n }}</option>{% endfor %}</select></label>
+      <label>Robô que envia <select name="agente">{% for a in agentes %}<option value="{{ a.id }}">{{ a.apelido }}</option>{% endfor %}</select></label>
+    </div>
+    <button class="btn primario grande">Mandar no meu WhatsApp</button>
+  </form>
+</section>
+<section class="cartao"><h2>Meus pedidos</h2>
+{% if meus %}
+<table class="resp"><thead><tr><th>Data</th><th>Nicho</th><th>Enviados</th><th>Situação</th></tr></thead><tbody>
+{% for p in meus %}<tr>
+  <td data-r="Data">{{ data_br(p.criado) }}</td><td data-r="Nicho">{{ p.nicho }}</td><td data-r="Enviados">{{ p.enviados }}/{{ p.qtd }}</td>
+  <td data-r="Situação"><span class="selo {{ {'enviado':'verde','pronto':'verde','incompleto':'vermelho','cancelado':'cinza'}.get(p.status,'amarelo') }}">{{ ROTULO_PEDIDO.get(p.status, p.status) }}</span></td>
+</tr>{% endfor %}</tbody></table>
+{% else %}<p class="vazio">Você ainda não pediu vídeos por aqui.</p>{% endif %}
+</section>
+<script>
+document.querySelectorAll('.pacote').forEach(b => b.addEventListener('click', () => {
+  document.getElementById('qtd').value = b.dataset.n;
+  document.querySelectorAll('.pacote').forEach(x => x.classList.toggle('ativo', x === b));
+}));
+</script>
+{% endblock %}

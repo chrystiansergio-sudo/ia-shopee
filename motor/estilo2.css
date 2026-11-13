@@ -1,0 +1,57 @@
+@font-face{font-family:Anton;src:url("file:///{FONTES}/fontes/Anton.ttf")}
+@font-face{font-family:Mont;src:url("file:///{FONTES}/fontes/Montserrat.ttf");font-weight:100 900}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:transparent}
+body{position:relative;font-family:Mont,"Segoe UI",Arial,sans-serif;color:#fff;font-weight:800}
+.ab{position:absolute}
+.c{left:0;right:0;text-align:center}
+.fundo{position:absolute;inset:0;overflow:hidden}
+.borrado{position:absolute;left:-10%;top:5%;width:120%;filter:blur(60px) saturate(1.4);opacity:.45;mix-blend-mode:screen}
+.raios{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 38%,rgba(255,255,255,.07) 0 10deg,transparent 10deg 20deg)}
+.titulo{display:inline-block;max-width:960px;font-family:Anton,Impact,sans-serif;font-weight:400;line-height:1.05;text-transform:uppercase;
+  letter-spacing:1px;text-shadow:0 6px 0 rgba(0,0,0,.35),0 0 30px rgba(0,0,0,.25)}
+.cartao{width:760px;height:760px;border-radius:56px;background:#fff;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 10px rgba(255,255,255,.35)}
+.cam{position:relative;width:100%;height:100%;transform-origin:50% 50%}
+.prod{width:100%;height:100%;object-fit:contain;background:#fff}
+.selo{width:230px;height:230px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 14px 0 rgba(0,0,0,.25),0 20px 40px rgba(0,0,0,.4);border:8px solid #fff}
+.selo b{font-family:Anton,Impact;font-weight:400;font-size:84px;line-height:1}
+.selo small{font-family:Anton,Impact;font-weight:400;font-size:44px;line-height:1}
+.chip{display:inline-block;background:#fff;color:#111;font-weight:900;font-size:44px;padding:14px 34px;border-radius:999px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+.de{display:inline-block;font-size:72px;font-weight:900;color:rgba(255,255,255,.9);text-shadow:0 4px 0 rgba(0,0,0,.3)}
+.preco{display:inline-block;font-family:Anton,Impact;font-weight:400;font-size:160px;line-height:1;text-shadow:0 10px 0 rgba(0,0,0,.35),0 0 40px rgba(0,0,0,.25)}
+.cta{display:inline-block;color:#111;font-weight:900;font-size:62px;padding:30px 56px;border-radius:999px;box-shadow:0 12px 0 rgba(0,0,0,.3),0 24px 40px rgba(0,0,0,.4)}
+.seta{font-size:150px;display:inline-block}
+.ia{display:inline-block;font-size:30px;font-weight:700;background:rgba(0,0,0,.45);padding:8px 20px;border-radius:999px;color:#fff}
+.espia{width:260px;height:260px;border-radius:50%;object-fit:cover;background:#fff;border:10px solid #fff;box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.leg{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:104px;line-height:1.08;padding:0 50px;text-transform:uppercase;transform-origin:50% 50%;
+  -webkit-text-stroke:14px #000;paint-order:stroke fill;text-shadow:0 10px 0 rgba(0,0,0,.45)}
+.leg b{font-weight:400;color:#fff}
+.olho{position:absolute;top:30%;width:12%;height:12%;background:#fff;border-radius:50%;border:6px solid #111;box-shadow:0 6px 12px rgba(0,0,0,.3);animation:pisca 3s infinite}
+.olho i{position:absolute;left:30%;top:30%;width:45%;height:45%;background:#111;border-radius:50%}
+.boca{position:absolute;left:43%;top:56%;width:14%;height:10px;background:#5a0a0a;border:6px solid #111;border-radius:0 0 80px 80px}
+@keyframes pisca{0%,44%,50%,100%{transform:scaleY(1)}47%{transform:scaleY(.1)}}
+
+.cartao{width:780px;height:780px;border-radius:48px;background:#fff;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 8px rgba(255,255,255,.9)}
+.prod{width:100%;height:100%;object-fit:contain;background:#fff;transform-origin:50% 50%}
+.titulo{text-shadow:0 6px 0 rgba(0,0,0,.45),0 0 40px rgba(0,0,0,.6)}
+.chip{font-size:42px}
+.ad{display:flex;align-items:center;justify-content:center;gap:26px;background:rgba(0,0,0,.62);border-radius:40px;padding:22px 30px;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.ad small{display:block;font-family:Mont;font-weight:900;font-size:34px;letter-spacing:3px;opacity:.85;color:#fff}
+.antes s{font-family:Anton,Impact;font-weight:400;font-size:84px;color:#ddd;text-decoration-thickness:8px;text-decoration-color:#ff3b3b}
+.agora b{font-family:Anton,Impact;font-weight:400;font-size:132px;line-height:1;text-shadow:0 8px 0 rgba(0,0,0,.4)}
+.antes,.agora{text-align:center}
+.seta2{font-size:80px;color:#fff}
+.eco{display:inline-block;color:#111;font-weight:900;font-size:46px;padding:14px 38px;border-radius:999px;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.ia{font-size:28px;background:rgba(0,0,0,.55)}
+.espia{width:230px;height:230px;border-radius:50%;object-fit:cover;background:#fff;border:9px solid #fff;box-shadow:0 16px 40px rgba(0,0,0,.5)}
+/* preço logo no início (regra do dono) */
+.etq{display:inline-flex;align-items:center;gap:18px;padding:10px 46px 14px;border-radius:34px;transform:rotate(-3deg);
+  box-shadow:0 12px 0 rgba(0,0,0,.35),0 26px 50px rgba(0,0,0,.45);border:6px solid #fff}
+.etq small{font-family:Anton,Impact;font-weight:400;font-size:62px;line-height:1}
+.etq b{font-family:Anton,Impact;font-weight:400;font-size:132px;line-height:1.05}
+.achado{display:inline-block;font-family:Anton,Impact;font-weight:400;font-size:46px;letter-spacing:2px;padding:6px 30px;border-radius:999px;
+  box-shadow:0 8px 0 rgba(0,0,0,.35);transform:rotate(-2deg)}
+.cartao{position:relative}
+.real{position:absolute;left:18px;bottom:16px;background:rgba(0,0,0,.55);color:#fff;font-family:Mont,sans-serif;font-weight:700;
+  font-size:26px;padding:6px 16px;border-radius:999px;letter-spacing:.5px}

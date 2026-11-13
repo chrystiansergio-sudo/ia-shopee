@@ -1,0 +1,9 @@
+{
+  "desconto_min": 25,
+  "vendas_min": 500,
+  "nota_min": 4.6,
+  "comissao_min": 0.05,
+  "preco_min": 10,
+  "preco_max": 250,
+  "dias_sem_repetir_cliente": 60
+}

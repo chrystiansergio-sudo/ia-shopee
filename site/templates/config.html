@@ -1,0 +1,32 @@
+{% extends "base.html" %}{% block titulo %}Preços e configurações{% endblock %}
+{% block conteudo %}
+<div class="cabeca"><h1>Preços e configurações</h1></div>
+<section class="cartao"><h2>Preços dos packs</h2>
+  <form method="post"><input type="hidden" name="_csrf" value="{{ csrf() }}"><input type="hidden" name="acao" value="precos">
+    {% for p in precos %}<div class="tres">
+      <label>Preço {{ p.id }} – nome <input name="nome{{ p.id }}" value="{{ p.nome }}"></label>
+      <label>Vídeos <input name="qtd{{ p.id }}" type="number" min="1" max="100" value="{{ p.qtd }}"></label>
+      <label>Valor (R$) <input name="valor{{ p.id }}" inputmode="decimal" value="{{ '%.2f'|format(p.valor) }}"></label>
+    </div>{% endfor %}
+    <button class="btn primario">Salvar preços</button>
+  </form>
+</section>
+<section class="cartao"><h2>Meu pack diário</h2>
+  <form method="post"><input type="hidden" name="_csrf" value="{{ csrf() }}"><input type="hidden" name="acao" value="diario">
+    <label class="marcar"><input type="checkbox" name="ativo" {% if c.diario_ativo == '1' %}checked{% endif %}> Receber vídeos todo dia no meu WhatsApp</label>
+    <div class="tres">
+      <label>Horário <input name="hora" type="time" value="{{ c.diario_hora }}"></label>
+      <label>Quantos vídeos <input name="qtd" type="number" min="1" max="30" value="{{ c.diario_qtd }}"></label>
+      <label>Nicho <select name="nicho"><option value="todos">Todos</option>{% for n in NICHOS %}<option {% if c.diario_nicho==n %}selected{% endif %}>{{ n }}</option>{% endfor %}</select></label>
+    </div>
+    <button class="btn primario">Salvar</button>
+  </form>
+</section>
+<section class="cartao"><h2>Trocar senha</h2>
+  <form method="post" class="duas"><input type="hidden" name="_csrf" value="{{ csrf() }}"><input type="hidden" name="acao" value="senha">
+    <label>Senha atual <input name="atual" type="password" autocomplete="current-password" required></label>
+    <label>Nova senha <input name="nova" type="password" autocomplete="new-password" minlength="6" required></label>
+    <div><button class="btn">Trocar senha</button></div>
+  </form>
+</section>
+{% endblock %}

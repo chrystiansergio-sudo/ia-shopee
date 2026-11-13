@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 700">
+  <defs><clipPath id="robo-rosto"><rect x="206" y="100" width="228" height="190" rx="30"/></clipPath></defs>
+  <g stroke="#15191e" stroke-width="9" stroke-linejoin="round">
+    <rect x="236" y="586" width="60" height="66" fill="#555e68"/>
+    <rect x="344" y="586" width="60" height="66" fill="#555e68"/>
+    <rect x="216" y="642" width="100" height="50" rx="24" fill="#e4e7ec"/>
+    <rect x="324" y="642" width="100" height="50" rx="24" fill="#e4e7ec"/>
+    <rect x="268" y="292" width="104" height="34" fill="#555e68"/>
+    <rect x="128" y="316" width="384" height="278" rx="38" fill="#ee4d2d"/>
+    <rect x="158" y="348" width="324" height="184" rx="24" fill="#d0011b"/>
+  </g>
+  <g stroke="#15191e" stroke-width="9" stroke-linejoin="round">
+    <path d="M112 360L42 474L100 450" fill="none" stroke-width="42" stroke-linecap="round"/>
+    <path d="M112 360L42 474L100 450" fill="none" stroke="#555e68" stroke-width="25" stroke-linecap="round"/>
+    <rect x="124" y="428" width="84" height="28" rx="14" fill="#ff7337"/>
+    <circle cx="114" cy="444" r="32" fill="#ff7337"/>
+  </g>
+  <g stroke="#15191e" stroke-width="9" stroke-linejoin="round">
+    <path d="M528 360L598 474L540 450" fill="none" stroke-width="42" stroke-linecap="round"/>
+    <path d="M528 360L598 474L540 450" fill="none" stroke="#555e68" stroke-width="25" stroke-linecap="round"/>
+    <rect x="432" y="428" width="84" height="28" rx="14" fill="#ff7337"/>
+    <circle cx="526" cy="444" r="32" fill="#ff7337"/>
+  </g>
+  <g stroke="#15191e" stroke-width="9" stroke-linejoin="round">
+    <ellipse cx="116" cy="352" rx="44" ry="36" fill="#ee4d2d"/>
+    <ellipse cx="524" cy="352" rx="44" ry="36" fill="#ee4d2d"/>
+    <rect x="311" y="44" width="18" height="34" fill="#555e68"/>
+    <circle cx="320" cy="28" r="22" fill="#ff7337"/>
+    <rect x="272" y="70" width="96" height="26" rx="10" fill="#c9ced6"/>
+    <rect x="166" y="150" width="60" height="110" rx="30" fill="#555e68"/>
+    <rect x="414" y="150" width="60" height="110" rx="30" fill="#555e68"/>
+    <rect x="192" y="88" width="256" height="212" rx="42" fill="#555e68"/>
+    <rect x="178" y="174" width="15" height="62" rx="7" fill="#ff7337" stroke-width="5"/>
+    <rect x="447" y="174" width="15" height="62" rx="7" fill="#ff7337" stroke-width="5"/>
+  </g>
+  <g clip-path="url(#robo-rosto)">
+    <rect x="206" y="100" width="228" height="190" fill="#d67f3c"/>
+    <path d="M206 100H434V178H420V140q-13 16-26 0q-15 16-30 0q-15 16-30 0q-15 16-30 0q-15 16-30 0q-14 16-28 0q-13 16-26 0V178H206Z" fill="#33241e"/>
+    <path d="M206 218C214 252 240 262 270 262H370C400 262 426 252 434 218V290H206Z" fill="#33241e"/>
+    <rect x="276" y="238" width="88" height="52" rx="18" fill="#d67f3c"/>
+    <rect x="276" y="228" width="88" height="15" rx="7" fill="#33241e"/>
+  </g>
+  <g fill="#33241e">
+    <rect x="240" y="156" width="58" height="14" rx="7"/>
+    <rect x="342" y="156" width="58" height="14" rx="7"/>
+  </g>
+  <circle cx="270" cy="196" r="20" fill="#15191e"/><circle cx="276" cy="190" r="6" fill="#fff"/>
+  <g ><circle cx="370" cy="196" r="20" fill="#15191e"/><circle cx="376" cy="190" r="6" fill="#fff"/></g>
+  <path d="M292 246H348Q347 280 320 280Q293 280 292 246Z" fill="#fff" stroke="#15191e" stroke-width="7" stroke-linejoin="round"/>
+  <g text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-weight="800" fill="#fff">
+{% if numero is defined %}
+    <text x="320" y="462" font-size="{{ 112 if numero|string|length < 4 else 84 }}">{{ numero }}</text>
+    <text x="320" y="512" font-size="34" letter-spacing="1">{{ rotulo }}</text>
+{% else %}
+    <path d="M286 382h68l-6 64h-56z" fill="none" stroke="#fff" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M300 382q0-26 20-26t20 26" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+    <text x="320" y="508" font-size="58" letter-spacing="1">Shopee</text>
+{% endif %}
+  </g>
+  <rect x="250" y="548" width="140" height="12" rx="6" fill="#555e68"/>
+  <circle cx="156" cy="566" r="9" fill="#15191e"/><circle cx="484" cy="566" r="9" fill="#15191e"/>
+</svg>

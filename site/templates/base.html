@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ee4d2d">
+<title>{% block titulo %}Painel{% endblock %} · IA Shopee</title>
+<link rel="icon" href="{{ url_for('robo_svg') }}" type="image/svg+xml">
+<link rel="manifest" href="{{ url_for('manifest') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+{% block corpo %}
+<header class="topo">
+  <a class="marca" href="{{ url_for('geral') }}"><img src="{{ url_for('robo_svg') }}" alt=""><span>IA Shopee</span></a>
+  <nav class="menu" aria-label="Menu">
+    <a href="{{ url_for('geral') }}" {% if aba=='geral' %}aria-current="page"{% endif %}>Visão geral</a>
+    <a href="{{ url_for('meus_videos') }}" {% if aba=='meus' %}aria-current="page"{% endif %}>Para mim</a>
+    <a href="{{ url_for('clientes') }}" {% if aba=='clientes' %}aria-current="page"{% endif %}>Clientes</a>
+    <a href="{{ url_for('pedidos_pg') }}" {% if aba=='pedidos' %}aria-current="page"{% endif %}>Pedidos</a>
+    <a href="{{ url_for('agentes') }}" {% if aba=='agentes' %}aria-current="page"{% endif %}>Agentes</a>
+    <a href="{{ url_for('estoque_pg') }}" {% if aba=='estoque' %}aria-current="page"{% endif %}>Estoque</a>
+    <a href="{{ url_for('config') }}" {% if aba=='config' %}aria-current="page"{% endif %}>Preços</a>
+  </nav>
+  <form class="sair" method="post" action="{{ url_for('sair') }}"><input type="hidden" name="_csrf" value="{{ csrf() }}"><button>Sair</button></form>
+</header>
+<main class="pagina">
+  {% for cat, msg in get_flashed_messages(with_categories=true) %}<div class="aviso {{ cat }}" role="status">{{ msg }}</div>{% endfor %}
+  {% block conteudo %}{% endblock %}
+</main>
+{% endblock %}
+</body>
+</html>

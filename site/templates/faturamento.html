@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% block titulo %}Recebido no mês{% endblock %}
+{% block conteudo %}
+<div class="cabeca">
+  <a class="btn pequeno" href="{{ url_for('geral') }}">‹ Visão geral</a>
+  <div class="mes">
+    <a class="btn pequeno" href="{{ url_for('faturamento', mes=ant) }}" aria-label="Mês anterior">◀</a>
+    <h2>{{ titulo_mes }}</h2>
+    <a class="btn pequeno" href="{{ url_for('faturamento', mes=prox) }}" aria-label="Próximo mês">▶</a>
+  </div>
+</div>
+<section class="painel3">
+  <div class="tile dinheiro"><b>{{ brl(recebido) }}</b><span>Recebido no mês</span></div>
+  <div class="tile laranja"><b>{{ brl(a_receber) }}</b><span>A receber</span></div>
+  <div class="tile"><b>{{ vendas|length }}</b><span>Vendas · {{ videos }} vídeos</span></div>
+</section>
+<section class="cartao"><h2>Vendas de {{ titulo_mes }}</h2>
+{% if vendas %}
+<table class="resp"><thead><tr><th>Data</th><th>Cliente</th><th>Vídeos</th><th>Valor</th><th>Pagamento</th></tr></thead><tbody>
+{% for v in vendas %}<tr>
+  <td data-r="Data">{{ data_br(v.data) }}</td><td data-r="Cliente"><a href="{{ url_for('cliente', cid=v.cliente_id) }}">{{ v.cliente }}</a></td>
+  <td data-r="Vídeos">{{ v.qtd }}</td><td data-r="Valor">{{ brl(v.valor) }}</td>
+  <td data-r="Pagamento"><form method="post" action="{{ url_for('venda_pago', vid=v.id) }}"><input type="hidden" name="_csrf" value="{{ csrf() }}">
+    <button class="btn pequeno">{% if v.pago %}<span class="selo verde">Pago</span>{% else %}<span class="selo amarelo">Marcar pago</span>{% endif %}</button></form></td>
+</tr>{% endfor %}</tbody></table>
+{% else %}<p class="vazio">Nenhuma venda neste mês.</p>{% endif %}
+</section>
+{% endblock %}

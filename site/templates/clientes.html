@@ -1,0 +1,28 @@
+{% extends "base.html" %}{% block titulo %}Clientes{% endblock %}
+{% block conteudo %}
+<div class="cabeca"><h1>Clientes</h1><a class="btn primario" href="#novo">+ Cadastrar cliente</a></div>
+<ul class="lista">{% for c in clientes %}
+  <li class="linha {{ '' if c.ativo else 'off' }}">
+    <div class="linha-nome"><a href="{{ url_for('cliente', cid=c.id) }}">{{ c.nome }}</a>{% if c.dono %} <span class="selo cinza">você</span>{% endif %}</div>
+    <div class="dado"><span>WhatsApp</span>+{{ c.whatsapp }}</div>
+    <div class="dado"><span>API Shopee</span>{% if c.app_id %}<span class="selo verde">Cadastrada</span>{% else %}<span class="selo amarelo">Sem API</span>{% endif %}</div>
+    <div class="dado"><span>Vendas · pago</span>{{ c.n_vendas }} · {{ brl(c.total) }}</div>
+    <a class="btn" href="{{ url_for('cliente', cid=c.id) }}">Abrir / vender</a>
+  </li>{% endfor %}</ul>
+<section class="cartao" id="novo">
+  <h2>Cadastrar cliente</h2>
+  <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf() }}">
+    <div class="duas">
+      <label>Nome do cliente <input name="nome" required autocomplete="off"></label>
+      <label>WhatsApp que recebe os vídeos <small>(com DDD)</small><input name="whatsapp" inputmode="tel" placeholder="31 99999-9999" required></label>
+      <label>API do cliente – AppID <small>(Shopee Afiliados → Open API)</small><input name="app_id" autocomplete="off"></label>
+      <label>API do cliente – Senha (Secret) <input name="secret" autocomplete="off"></label>
+      <label>Nicho preferido <select name="nicho"><option value="todos">Todos os nichos</option>{% for n in NICHOS %}<option>{{ n }}</option>{% endfor %}</select></label>
+      <label>Observação <input name="obs" autocomplete="off"></label>
+    </div>
+    <p class="ajuda">Com a API do cliente, o link de cada vídeo sai como link de afiliado DELE (a comissão cai para ele). Sem a API, vai o link normal do produto.</p>
+    <button class="btn primario grande">Cadastrar cliente</button>
+  </form>
+</section>
+{% endblock %}

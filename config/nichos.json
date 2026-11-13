@@ -1,0 +1,168 @@
+{
+  "casa e cozinha": [
+    "utensilios cozinha",
+    "organizador cozinha",
+    "air fryer acessorios",
+    "pote hermetico",
+    "garrafa termica",
+    "faca cozinha",
+    "panela",
+    "escorredor",
+    "porta tempero",
+    "tapete cozinha",
+    "lixeira",
+    "dispenser"
+  ],
+  "organizacao": [
+    "organizador gaveta",
+    "caixa organizadora",
+    "cabide",
+    "organizador closet",
+    "prateleira",
+    "organizador maquiagem",
+    "sapateira",
+    "organizador geladeira",
+    "gancho adesivo",
+    "organizador mala"
+  ],
+  "limpeza": [
+    "mop",
+    "escova limpeza",
+    "pano microfibra",
+    "limpador",
+    "rodo",
+    "escova eletrica limpeza",
+    "esponja",
+    "aspirador portatil",
+    "removedor de pelos"
+  ],
+  "beleza": [
+    "skincare",
+    "serum facial",
+    "maquiagem",
+    "pincel maquiagem",
+    "escova secadora",
+    "chapinha",
+    "unhas",
+    "perfume",
+    "protetor solar",
+    "cilios"
+  ],
+  "moda": [
+    "bolsa feminina",
+    "mochila",
+    "tenis",
+    "relogio",
+    "oculos de sol",
+    "carteira",
+    "cinto",
+    "bone",
+    "meia",
+    "pijama"
+  ],
+  "eletronicos": [
+    "fone bluetooth",
+    "carregador",
+    "cabo usb",
+    "caixa de som bluetooth",
+    "smartwatch",
+    "suporte celular",
+    "power bank",
+    "luz led",
+    "ring light",
+    "mouse"
+  ],
+  "pet": [
+    "cachorro",
+    "gato",
+    "comedouro",
+    "cama pet",
+    "brinquedo cachorro",
+    "arranhador",
+    "coleira",
+    "tapete higienico",
+    "escova pet"
+  ],
+  "fitness": [
+    "academia",
+    "garrafa academia",
+    "elastico exercicio",
+    "tapete yoga",
+    "corda pular",
+    "halter",
+    "roupa academia",
+    "faixa elastica"
+  ],
+  "casa e decoracao": [
+    "decoração",
+    "luminaria",
+    "quadro decorativo",
+    "capa almofada",
+    "cortina",
+    "jogo de lençol",
+    "tapete sala",
+    "vaso decorativo",
+    "fita led"
+  ],
+  "carro": [
+    "acessorios carro",
+    "suporte celular carro",
+    "aspirador carro",
+    "organizador carro",
+    "capa banco carro",
+    "cheirinho carro",
+    "carregador veicular"
+  ],
+  "ferramentas": [
+    "ferramenta",
+    "furadeira",
+    "jogo chave",
+    "trena",
+    "fita isolante",
+    "kit ferramentas",
+    "parafusadeira"
+  ],
+  "bebe e infantil": [
+    "bebe",
+    "brinquedo educativo",
+    "mamadeira",
+    "organizador bebe",
+    "lancheira",
+    "garrafa infantil"
+  ],
+  "papelaria": [
+    "papelaria",
+    "caderno",
+    "caneta",
+    "agenda",
+    "estojo",
+    "marca texto"
+  ],
+  "viagem": [
+    "mala viagem",
+    "organizador mala",
+    "travesseiro viagem",
+    "necessaire",
+    "adaptador tomada"
+  ],
+  "maquiagem": [
+    "batom",
+    "paleta de sombra",
+    "mascara cilios",
+    "base maquiagem",
+    "delineador",
+    "gloss labial",
+    "esponja maquiagem",
+    "corretivo"
+  ],
+  "saude": [
+    "massageador",
+    "corretor postural",
+    "oximetro",
+    "termometro digital",
+    "joelheira",
+    "palmilha ortopedica",
+    "escova dental eletrica",
+    "bolsa termica gel"
+  ]
+}

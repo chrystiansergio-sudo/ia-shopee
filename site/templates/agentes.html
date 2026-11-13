@@ -1,0 +1,41 @@
+{% extends "base.html" %}{% block titulo %}Agentes{% endblock %}
+{% block conteudo %}
+<div class="cabeca"><h1>Agentes (robôs de WhatsApp)</h1></div>
+{% if not bot_ok %}<div class="aviso erro">O bot de WhatsApp está desligado neste computador. Ligue o "Iniciar IA Shopee".</div>{% endif %}
+<ul class="lista">{% for a in agentes %}{% set st = sess.get(a.sessao) %}
+  <li class="linha {{ '' if st == 'conectado' else 'off' }}" data-aid="{{ a.id }}">
+    <div class="linha-nome">{{ a.apelido }}</div>
+    <div class="dado"><span>Situação</span><span class="selo {{ 'verde' if st == 'conectado' else 'amarelo' }} st">{{ ROTULO_STATUS.get(st, 'Desligado') }}</span></div>
+    <div class="dado"><span>Código interno</span>{{ a.sessao }}</div>
+    <div class="pilha">
+      {% if st != 'conectado' %}<form method="post" action="{{ url_for('agente_ligar', aid=a.id) }}"><input type="hidden" name="_csrf" value="{{ csrf() }}"><button class="btn pequeno">Gerar QR</button></form>{% endif %}
+      {% if st == 'conectado' %}<form method="post" action="{{ url_for('agente_desconectar', aid=a.id) }}"><input type="hidden" name="_csrf" value="{{ csrf() }}"><button class="btn pequeno perigo">Desconectar</button></form>{% endif %}
+      <form method="post" action="{{ url_for('agente_remover', aid=a.id) }}" onsubmit="return confirm('Remover este agente?')"><input type="hidden" name="_csrf" value="{{ csrf() }}"><button class="btn pequeno perigo">Remover</button></form>
+    </div>
+    {% if st in ('aguardando_qr', 'iniciando', 'reconectando', None) %}
+    <div style="grid-column:1/-1;text-align:center" class="qrbox">
+      <p class="ajuda">No celular do robô: WhatsApp → Aparelhos conectados → Conectar aparelho → aponte para o código.</p>
+      <img class="qr" alt="QR Code" src="{{ url_for('agente_qr', aid=a.id) }}?t=0">
+    </div>{% endif %}
+  </li>{% endfor %}</ul>
+<section class="cartao">
+  <h2>Adicionar agente</h2>
+  <form method="post" class="duas">
+    <input type="hidden" name="_csrf" value="{{ csrf() }}">
+    <label>Apelido <input name="apelido" placeholder="Ex.: Chip 2" required autocomplete="off"></label>
+    <div style="align-self:end;margin-bottom:.7rem"><button class="btn primario grande">Adicionar e mostrar QR</button></div>
+  </form>
+  <p class="ajuda">Cada agente é um número de WhatsApp que manda os vídeos para os clientes. O cliente precisa mandar um "oi" para o número do agente antes de receber.</p>
+</section>
+<script>
+// atualiza QR e situação sozinho
+setInterval(async()=>{
+  for(const li of document.querySelectorAll('[data-aid]')){
+    try{const r=await (await fetch('/agentes/'+li.dataset.aid+'/status')).json();
+      const st=li.querySelector('.st'); if(st) st.textContent=r.rotulo||'Desligado';
+      if(r.status==='conectado' && li.querySelector('.qrbox')) location.reload();
+      const img=li.querySelector('.qr'); if(img && r.qr) img.src=img.src.split('?')[0]+'?t='+Date.now();
+    }catch(e){}
+  }},5000);
+</script>
+{% endblock %}
